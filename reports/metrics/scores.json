@@ -1,3 +1,11 @@
 {
-    "model_scores": []
+    "model_scores": [
+        {
+            "model_name": "model.h5",
+            "model_path": "models/model.h5",
+            "time_taken": 1393.1151320934296,
+            "loss": 0.23965692520141602,
+            "accuracy": 0.9048507213592529
+        }
+    ]
 }

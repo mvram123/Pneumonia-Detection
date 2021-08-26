@@ -1,3 +1,18 @@
 {
-    "model_params": []
+    "model_params": [
+        {
+            "model_name": "model.h5",
+            "input_shape": [
+                224,
+                224,
+                3
+            ],
+            "weights": "imagenet",
+            "activation": "softmax",
+            "loss": "binary_crossentropy",
+            "optimizer": "adam",
+            "metrics": "accuracy",
+            "epochs": 1
+        }
+    ]
 }
