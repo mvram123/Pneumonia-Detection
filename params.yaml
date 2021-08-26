@@ -1,0 +1,45 @@
+base:
+  project: pneumonia-detection
+  image_size: [224, 224]
+  output: 2
+
+
+load_data:
+  train_path: data/train
+  test_path: data/test
+
+
+preprocessing:
+
+  Image_Data_Generator:
+
+    shear_range: 0.2
+    zoom_range: 0.2
+
+  batch_size: 32
+  class_mode: categorical
+
+
+estimators:
+
+  VGG16:
+    params:
+      input_shape:  [224, 224, 3]
+      weights: imagenet
+      activation: softmax
+      loss: binary_crossentropy
+      optimizer: adam
+      metrics: accuracy
+      epochs: 1
+
+evaluation:
+
+  model_path: models/model.h5
+
+model_dir: models
+
+reports:
+    model_summary_path: reports/model_summary
+    params_path: reports/metrics/params.json
+    scores_path: reports/metrics/scores.json
+    metric_path: reports/metrics/metric.json
