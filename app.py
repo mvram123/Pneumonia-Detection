@@ -22,7 +22,7 @@ def load_model():
 with st.spinner('Loading Model Into Memory....'):
   model = load_model()
 
-classes = ['Pneumonia', 'Healthy']
+classes = ['Healthy', 'Pneumonia']
 
 
 def decode_img(image):
