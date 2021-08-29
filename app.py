@@ -32,7 +32,7 @@ def decode_img(image):
 
 
 path = st.text_input('Enter Image URL to Classify.. ',
-                     'https://raw.githubusercontent.com/mvram123/Pneumonia-Detection-Using-TL/main/samples/p10.jpeg')
+                     'https://raw.githubusercontent.com/mvram123/Pneumonia-Detection/main/samples/p10.jpeg')
 if path is not None:
     content = requests.get(path).content
 
