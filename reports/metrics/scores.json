@@ -6,6 +6,13 @@
             "time_taken": 1393.1151320934296,
             "loss": 0.23965692520141602,
             "accuracy": 0.9048507213592529
+        },
+        {
+            "model_name": "model.h5",
+            "model_path": "models/model.h5",
+            "time_taken": 4002.7948608398438,
+            "loss": 0.5156428217887878,
+            "accuracy": 0.7861238718032837
         }
     ]
 }

@@ -30,7 +30,7 @@ estimators:
       loss: categorical_crossentropy
       optimizer: adam
       metrics: accuracy
-      epochs: 1
+      epochs: 3
 
 evaluation:
 
