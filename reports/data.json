@@ -1,0 +1,18 @@
+{
+    "data_info": [
+        {
+            "image_shape": [
+                224,
+                224,
+                3
+            ],
+            "no_of_train_batches": 164,
+            "no_of_test_batches": 20,
+            "classes": {
+                "BACTERIAL": 0,
+                "NORMAL": 1,
+                "VIRAL": 2
+            }
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 base:
   project: pneumonia-detection
   image_size: [224, 224]
-  output: 2
+  output: 3
 
 
 load_data:
@@ -27,7 +27,7 @@ estimators:
       input_shape:  [224, 224, 3]
       weights: imagenet
       activation: softmax
-      loss: binary_crossentropy
+      loss: categorical_crossentropy
       optimizer: adam
       metrics: accuracy
       epochs: 1
@@ -43,3 +43,4 @@ reports:
     params_path: reports/metrics/params.json
     scores_path: reports/metrics/scores.json
     metric_path: reports/metrics/metric.json
+    data_path: reports/data.json

@@ -21,7 +21,7 @@ def evaluate_model(config_path):
     model_path = data['model_scores'][-1]['model_path']
 
     test_path = config['load_data']['test_path']
-    paths = ['NORMAL/*', 'PNEUMONIA/*']
+    paths = ['NORMAL/*', 'BACTERIAL/*', 'VIRAL/*']
     true_outputs = []
     predicted_outputs = []
 
