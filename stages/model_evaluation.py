@@ -21,7 +21,7 @@ def evaluate_model(config_path):
     model_path = data['model_scores'][-1]['model_path']
 
     test_path = config['load_data']['test_path']
-    paths = ['NORMAL/*', 'PNEUMONIA/*']
+    paths = ['NORMAL/*', 'BACTERIAL/*', 'VIRAL/*']
     true_outputs = []
     predicted_outputs = []
 
@@ -34,12 +34,15 @@ def evaluate_model(config_path):
         images = glob(path)
         for j in range(len(images)):
 
-            if 'NORMAL' in images[j]:
-                # Not affected
-                true_outputs.append(1)
-            else:
-                # Affected with pneumonia
+            if 'bacteria' in images[j]:
+                # Affected with bacterial pneumonia
                 true_outputs.append(0)
+            elif 'virus' in images[j]:
+                # Affected with viral pneumonia
+                true_outputs.append(2)
+            else:
+                # no pneumonia
+                true_outputs.append(1)
 
             img = image.load_img(images[j], target_size=(224, 224))
             x = image.img_to_array(img)
@@ -60,9 +63,9 @@ def evaluate_model(config_path):
 
     model_metric = {
         "confusion_matrix": confusion_matrix(true_outputs, predicted_outputs).tolist(),
-        "precision": precision_score(true_outputs, predicted_outputs),
-        "recall": recall_score(true_outputs, predicted_outputs),
-        "f1_score": f1_score(true_outputs, predicted_outputs)
+        "precision": precision_score(true_outputs, predicted_outputs, average='micro'),
+        "recall": recall_score(true_outputs, predicted_outputs, average='micro'),
+        "f1_score": f1_score(true_outputs, predicted_outputs, average='micro')
     }
 
     data['model_metric'].append(model_metric)

@@ -1,4 +1,5 @@
 import yaml
+import json
 import argparse
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
@@ -40,6 +41,25 @@ def pre_processing(config_path):
                                                 target_size=(224, 224),
                                                 batch_size=batch_size,
                                                 class_mode=class_mode)
+
+
+    # need to store no of images in train and test
+    
+    data_file = config["reports"]["data_path"]
+
+    with open(data_file, "r") as f:
+        data = json.load(f)
+    
+    data_info = {
+        "image_shape": training_set.image_shape,
+        "no_of_train_batches": len(training_set),
+        "no_of_test_batches": len(test_set),
+        "classes": training_set.class_indices
+    }
+
+    data['data_info'].append(data_info)
+    with open(data_file, "w") as f:
+        json.dump(data, f, indent=4)
 
     return training_set, test_set
 
