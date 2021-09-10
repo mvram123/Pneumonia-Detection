@@ -2,6 +2,7 @@ import yaml
 import json
 import argparse
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from datetime import datetime
 
 
 def read_params(config_path):
@@ -51,6 +52,7 @@ def pre_processing(config_path):
         data = json.load(f)
     
     data_info = {
+        "time_stamp": datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
         "image_shape": training_set.image_shape,
         "no_of_train_batches": len(training_set),
         "no_of_test_batches": len(test_set),

@@ -100,6 +100,7 @@ def training_model(config_path):
         data = json.load(f)
 
     model_scores = {
+        "time_stamp": dt_string,
         "model_name": model_name,
         "model_path": model_path,
         "time_taken": time_taken_for_execution,
@@ -119,6 +120,7 @@ def training_model(config_path):
         data_params = json.load(f)
 
     model_params = {
+        "time_stamp": dt_string,
         "model_name": model_name,
         "input_shape": input_shape,
         "weights": weights,
@@ -133,6 +135,8 @@ def training_model(config_path):
 
     with open(params_file, "w") as f:
         json.dump(data_params, f, indent=4)
+    
+    return test_set
 
 
 if __name__ == "__main__":

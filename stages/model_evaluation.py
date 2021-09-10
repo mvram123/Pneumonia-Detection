@@ -1,71 +1,51 @@
 import os
 import argparse
 import json
-from glob import glob
 import numpy as np
+from datetime import datetime
 from sklearn.metrics import confusion_matrix,precision_score, recall_score, f1_score
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.vgg16 import preprocess_input
-from data_preprocessing import read_params
+from data_preprocessing import read_params, pre_processing
 
 
 def evaluate_model(config_path):
 
     config = read_params(config_path=config_path)
 
-    # Reading Model Path
-
+    # Reading Model Path and test set
+    test_set = pre_processing(config_path=config_path)[1]
     with open("reports/metrics/scores.json", "r") as f:
         data = json.load(f)
     model_path = data['model_scores'][-1]['model_path']
 
-    test_path = config['load_data']['test_path']
-    paths = ['NORMAL/*', 'BACTERIAL/*', 'VIRAL/*']
-    true_outputs = []
-    predicted_outputs = []
+    y_true = []
+    y_pred = []
+    test_length = len(test_set)
+
+    # Loading Model
 
     model = load_model(model_path)
 
-    # Prediction
-
-    for i in paths:
-        path = os.path.join(test_path, i)
-        images = glob(path)
-        for j in range(len(images)):
-
-            if 'bacteria' in images[j]:
-                # Affected with bacterial pneumonia
-                true_outputs.append(0)
-            elif 'virus' in images[j]:
-                # Affected with viral pneumonia
-                true_outputs.append(2)
-            else:
-                # no pneumonia
-                true_outputs.append(1)
-
-            img = image.load_img(images[j], target_size=(224, 224))
-            x = image.img_to_array(img)
-            y = np.expand_dims(x, axis=0)
-
-            img_data = preprocess_input(y)
-            classes = model.predict(img_data)
-            result = int(classes[0][0])
-
-            predicted_outputs.append(result)
-
-    # Classification report, confusion metrics and f1 score
-
+    # getting labels of both train and test
+    for i in range(test_length):
+        x, y = test_set[i]
+        y_true.extend([np.argmax(i) for i in y])
+        y_pred.extend([np.argmax(i) for i in model.predict(x)])
+    
+    # saving Model metrics
     metric_file = config["reports"]["metric_path"]
 
     with open(metric_file, "r") as f:
         data = json.load(f)
 
     model_metric = {
-        "confusion_matrix": confusion_matrix(true_outputs, predicted_outputs).tolist(),
-        "precision": precision_score(true_outputs, predicted_outputs, average='micro'),
-        "recall": recall_score(true_outputs, predicted_outputs, average='micro'),
-        "f1_score": f1_score(true_outputs, predicted_outputs, average='micro')
+        "time_stamp": datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
+        "confusion_matrix": confusion_matrix(y_true, y_pred).tolist(),
+        "precision": list(precision_score(y_true, y_pred, average=None)),
+        "recall": list(recall_score(y_true, y_pred, average=None)),
+        "f1_score": list(f1_score(y_true, y_pred, average=None))
     }
 
     data['model_metric'].append(model_metric)

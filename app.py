@@ -32,13 +32,14 @@ def decode_img(image):
 
 
 path = st.text_input('Enter Image URL to Classify.. ',
-                     'https://raw.githubusercontent.com/mvram123/Pneumonia-Detection/main/samples/p10.jpeg')
+                     'https://raw.githubusercontent.com/mvram123/Pneumonia-Detection/main/samples/v5.jpeg')
 if path is not None:
     content = requests.get(path).content
 
     st.write("Predicted Class :")
     with st.spinner('classifying.....'):
         label = np.argmax(model.predict(decode_img(content)), axis=1)
+    print(model.predict(decode_img(content)))
     print(label)
     st.write(classes[label[0]])
     st.write("")

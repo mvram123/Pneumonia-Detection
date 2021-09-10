@@ -16,7 +16,7 @@ preprocessing:
     shear_range: 0.2
     zoom_range: 0.2
 
-  batch_size: 32
+  batch_size: 64
   class_mode: categorical
 
 
