@@ -1,21 +1,21 @@
 import os
 import argparse
 import json
-from glob import glob
 import numpy as np
+from datetime import datetime
 from sklearn.metrics import confusion_matrix,precision_score, recall_score, f1_score
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.vgg16 import preprocess_input
-from data_preprocessing import read_params
-from model_training import training_model
+from data_preprocessing import read_params, pre_processing
+
 
 def evaluate_model(config_path):
 
     config = read_params(config_path=config_path)
 
     # Reading Model Path and test set
-    test_set = training_model(config_path=config_path)
+    test_set = pre_processing(config_path=config_path)[1]
     with open("reports/metrics/scores.json", "r") as f:
         data = json.load(f)
     model_path = data['model_scores'][-1]['model_path']
@@ -41,10 +41,11 @@ def evaluate_model(config_path):
         data = json.load(f)
 
     model_metric = {
+        "time_stamp": datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
         "confusion_matrix": confusion_matrix(y_true, y_pred).tolist(),
-        "precision": precision_score(y_true, y_pred, average=None),
-        "recall": recall_score(y_true, y_pred, average=None),
-        "f1_score": f1_score(y_true, y_pred, average=None)
+        "precision": list(precision_score(y_true, y_pred, average=None)),
+        "recall": list(recall_score(y_true, y_pred, average=None)),
+        "f1_score": list(f1_score(y_true, y_pred, average=None))
     }
 
     data['model_metric'].append(model_metric)

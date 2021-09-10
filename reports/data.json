@@ -14,6 +14,21 @@
                 "NORMAL": 1,
                 "VIRAL": 2
             }
+        },
+        {
+            "time_stamp": "10-09-2021_18:10:53",
+            "image_shape": [
+                224,
+                224,
+                3
+            ],
+            "no_of_train_batches": 82,
+            "no_of_test_batches": 10,
+            "classes": {
+                "BACTERIAL": 0,
+                "NORMAL": 1,
+                "VIRAL": 2
+            }
         }
     ]
 }
