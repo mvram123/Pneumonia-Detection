@@ -12,7 +12,7 @@
 
 ## 💡 How To Use Our Web Application
 
-![alt text](https://github.com/mvram123/mvram123/blob/main/Pneumonia/pneumo_webapp.png)
+![alt text](https://raw.githubusercontent.com/mvram123/mvram123/main/Pneumonia/Webapp.png)
 
 **Step 1**: Click this link to visit our web application: [Pneumonia Detection](https://share.streamlit.io/mvram123/pneumonia-detection/main/app.py)
 
@@ -23,6 +23,10 @@
 
 
 ## ⏳ Data
+
+![Illustrative Examples of Chest X-Rays in Patients with Pneumoni](https://i.imgur.com/jZqpV51.png)
+
+The normal chest X-ray (left panel) depicts clear lungs without any areas of abnormal opacification in the image. Bacterial pneumonia (middle) typically exhibits a focal lobar consolidation, in this case in the right upper lobe (white arrows), whereas viral pneumonia (right) manifests with a more diffuse ‘‘interstitial’’ pattern in both lungs.
 
 The dataset I’m using here is stored as .jpg files in 2 different folders one is named with Normal which consists of normal chest x-ray Images and other is named with Pneumonia which consists of pneumonia images. 
 
